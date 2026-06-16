@@ -368,7 +368,7 @@ export default function WeeklyPlanPage() {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/refine-day", {
+      const response = await axios.post("https://planmycontent.onrender.com/api/auth/refine-day", {
         dayData: stripIcons(plan[index]),
         feedback: refinementFeedback,
         onboardingData: onboarding,
@@ -486,7 +486,7 @@ export default function WeeklyPlanPage() {
       try {
         setLoading(true);
         const res = await fetch(
-          "http://localhost:5000/api/auth/generate-weekly-plan",
+          "https://planmycontent.onrender.com/api/auth/generate-weekly-plan",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

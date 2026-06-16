@@ -98,7 +98,7 @@ function OnboardPage() {
         challenges: finalChallenges || formData.challenges,
       };
 
-      const res = await fetch("http://localhost:5000/api/auth/onboarding", {
+      const res = await fetch("https://planmycontent.onrender.com/api/auth/onboarding", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

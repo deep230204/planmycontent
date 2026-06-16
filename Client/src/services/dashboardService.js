@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/dashboard';
+const API_URL = 'https://planmycontent.onrender.com/api/dashboard';
 
 export const getDashboardData = async (userId) => {
   const response = await axios.post(`${API_URL}/data`, { userId });

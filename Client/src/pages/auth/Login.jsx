@@ -42,7 +42,7 @@ function Login() {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
+      const response = await axios.post("https://planmycontent.onrender.com/api/auth/login", {
         email,
         password,
       });

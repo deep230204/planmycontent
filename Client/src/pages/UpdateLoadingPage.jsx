@@ -73,7 +73,7 @@ function UpdatedLoadingPage() {
         setTimeout(resolve, 12000);
       });
 
-      const generationPromise = fetch("http://localhost:5000/api/auth/generate-results", {
+      const generationPromise = fetch("https://planmycontent.onrender.com/api/auth/generate-results", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

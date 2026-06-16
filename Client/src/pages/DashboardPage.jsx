@@ -238,7 +238,7 @@ const DashboardPage = () => {
       }
 
       const orderRes = await fetch(
-        "http://localhost:5000/api/auth/payments/razorpay/order",
+        "https://planmycontent.onrender.com/api/auth/payments/razorpay/order",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -271,7 +271,7 @@ const DashboardPage = () => {
         handler: async (response) => {
           try {
             const verifyRes = await fetch(
-              "http://localhost:5000/api/auth/payments/razorpay/verify",
+              "https://planmycontent.onrender.com/api/auth/payments/razorpay/verify",
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

@@ -49,7 +49,7 @@ function ResetPassword() {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:5000/api/auth/reset-password", {
+      const response = await axios.post("https://planmycontent.onrender.com/api/auth/reset-password", {
         email,
         otp,
         newPassword: password,

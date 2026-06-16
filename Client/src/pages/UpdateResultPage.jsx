@@ -119,7 +119,7 @@ export default function UpdateResultPage() {
   const handleEnhanceIdea = async (idea, index) => {
     try {
       setIsEnhancing((prev) => ({ ...prev, [index]: true }));
-      const res = await axios.post("http://localhost:5000/api/auth/enhance-idea", {
+      const res = await axios.post("https://planmycontent.onrender.com/api/auth/enhance-idea", {
         idea,
         onboardingData,
       });

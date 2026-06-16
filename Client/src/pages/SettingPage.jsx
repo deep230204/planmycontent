@@ -53,7 +53,7 @@ const SettingPage = () => {
 
     if (!user?.email) return;
 
-    fetch("http://localhost:5000/api/auth/user-data", {
+    fetch("https://planmycontent.onrender.com/api/auth/user-data", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: user.email }),
@@ -135,7 +135,7 @@ const SettingPage = () => {
 
     setIsSaving(true);
 
-    fetch("http://localhost:5000/api/auth/settings", {
+    fetch("https://planmycontent.onrender.com/api/auth/settings", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

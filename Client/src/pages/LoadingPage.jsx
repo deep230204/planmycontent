@@ -58,7 +58,7 @@ function LoadingPage() {
       });
 
       const generationPromise = onboardingData
-        ? fetch("http://localhost:5000/api/auth/generate-results", {
+        ? fetch("https://planmycontent.onrender.com/api/auth/generate-results", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
