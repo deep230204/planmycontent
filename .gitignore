@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+Client/node_modules/
+Server/node_modules/
+
+# Environment Variables
+.env
+.env.local
+Client/.env
+Server/.env
+
+# Build Files
+dist/
+build/
+.next/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
