@@ -37,6 +37,22 @@ const MEMBERSHIP_PLANS = {
   },
 };
 
+const getOtpEmailErrorMessage = (error) => {
+  if (error.code === "EAUTH") {
+    return "Gmail authentication failed. Please check EMAIL_USER and EMAIL_PASS on Render.";
+  }
+
+  if (error.code === "ENETUNREACH" || error.code === "ETIMEDOUT") {
+    return "Email server connection failed from Render. Please redeploy the latest SMTP fix and try again.";
+  }
+
+  if (error.responseCode === 535) {
+    return "Gmail rejected the email login. Use a Gmail App Password for EMAIL_PASS.";
+  }
+
+  return "Unable to send OTP email right now. Please check email configuration and try again.";
+};
+
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -192,8 +208,7 @@ const forgotPassword = async (req, res) => {
 
       return res.status(502).json({
         success: false,
-        message:
-          "Unable to send OTP email right now. Please check email configuration and try again.",
+        message: getOtpEmailErrorMessage(emailError),
       });
     }
 
