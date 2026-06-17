@@ -156,7 +156,7 @@ const loginUser = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
   try {
-    const { email } = req.body;
+    const email = req.body.email?.trim().toLowerCase();
 
     if (!email) {
       return res.status(400).json({
@@ -184,7 +184,19 @@ const forgotPassword = async (req, res) => {
       expiresAt: new Date(Date.now() + 3 * 60 * 1000),
     });
 
-    await sendEmail(email, otp);
+    try {
+      await sendEmail(email, otp);
+    } catch (emailError) {
+      await OTP.deleteMany({ email });
+      console.error("Forgot password email error:", emailError.message);
+
+      return res.status(502).json({
+        success: false,
+        message:
+          "Unable to send OTP email right now. Please check email configuration and try again.",
+      });
+    }
+
     res.status(200).json({
       success: true,
       message: "OTP sent successfully",

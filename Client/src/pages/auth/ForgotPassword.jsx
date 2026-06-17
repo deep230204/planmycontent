@@ -8,6 +8,9 @@ import PremiumInput from "../../components/Branding/auth/PremiumInput";
 import PremiumButton from "../../components/Branding/auth/PremiumButton";
 import StatusMessage from "../../components/Branding/auth/StatusMessage";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "https://planmycontent.onrender.com/api";
+
 function ForgotPassword() {
   const navigate = useNavigate();
 
@@ -34,9 +37,12 @@ function ForgotPassword() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://planmycontent.onrender.com/api/auth/forgot-password",
+        `${API_BASE_URL}/auth/forgot-password`,
         {
-          email,
+          email: email.trim().toLowerCase(),
+        },
+        {
+          timeout: 20000,
         }
       );
 
@@ -46,7 +52,15 @@ function ForgotPassword() {
 
       navigate("/VerifyOtpPage");
     } catch (error) {
-      setError(error.response?.data?.message || "Failed to send OTP");
+      let message = error.response?.data?.message || "Failed to send OTP";
+
+      if (error.code === "ECONNABORTED") {
+        message = "Sending OTP is taking too long. Please try again.";
+      } else if (error.code === "ERR_NETWORK") {
+        message = "Cannot reach backend server. Please start the server and try again.";
+      }
+
+      setError(message);
     } finally {
       setLoading(false);
     }

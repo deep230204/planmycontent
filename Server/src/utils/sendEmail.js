@@ -1,25 +1,50 @@
 const nodemailer = require("nodemailer");
 
+let transporter;
+
+const getTransporter = () => {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    throw new Error(
+      "Email is not configured. Add EMAIL_USER and EMAIL_PASS to Server/.env and restart the backend server."
+    );
+  }
+
+  if (transporter) {
+    return transporter;
+  }
+
+  transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    family: 4,
+    pool: true,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+    tls: {
+      servername: "smtp.gmail.com",
+    },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
+  });
+
+  return transporter;
+};
+
 const sendEmail = async (to, otp) => {
-  try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+  const transporter = getTransporter();
 
-    const mailOptions = {
-      from: `"PlanMyContent" <${process.env.EMAIL_USER}>`,
-      to,
-      subject: "Reset Password OTP",
-
-      // ✅ ONLY HTML (no text → no quoted text issue)
-      html: `
+  await transporter.sendMail({
+    from: `"PlanMyContent" <${process.env.EMAIL_USER}>`,
+    to,
+    subject: "Reset Password OTP",
+    text: `Your PlanMyContent password reset OTP is ${otp}. This OTP expires in 3 minutes.`,
+    html: `
       <div style="background:#f5f7fb;padding:20px;font-family:Arial,sans-serif;">
         <div style="max-width:480px;margin:auto;background:#fff;padding:24px;border-radius:10px;border:1px solid #e5e7eb;">
-          
           <h2 style="margin:0;color:#ff6b00;">PlanMyContent</h2>
           <p style="font-size:13px;color:#777;margin:4px 0 16px;">
             Smart Content Strategy Platform
@@ -28,7 +53,6 @@ const sendEmail = async (to, otp) => {
           <hr style="border:none;border-top:1px solid #eee;" />
 
           <h3>Reset your password</h3>
-
           <p>Use the OTP below:</p>
 
           <div style="text-align:center;margin:20px 0;">
@@ -48,18 +72,12 @@ const sendEmail = async (to, otp) => {
           <p style="text-align:center;font-size:13px;color:#666;">
             This OTP expires in <strong>3 minutes</strong>.
           </p>
-
         </div>
       </div>
-      `,
-    };
+    `,
+  });
 
-    await transporter.sendMail(mailOptions);
-    console.log("✅ Email sent with OTP:", otp);
-
-  } catch (error) {
-    console.error("❌ Email error:", error.message);
-  }
+  console.log("OTP email sent to:", to);
 };
 
 module.exports = sendEmail;
