@@ -3,6 +3,17 @@ const dns = require("dns");
 
 let transporter;
 
+const lookupIpv4Only = (hostname, options, callback) => {
+  dns.resolve4(hostname, (resolveError, addresses) => {
+    if (resolveError || !addresses.length) {
+      dns.lookup(hostname, { ...options, family: 4 }, callback);
+      return;
+    }
+
+    callback(null, addresses[0], 4);
+  });
+};
+
 const getTransporter = () => {
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     throw new Error(
@@ -21,6 +32,7 @@ const getTransporter = () => {
     port: 465,
     secure: true,
     family: 4,
+    lookup: lookupIpv4Only,
     pool: true,
     auth: {
       user: process.env.EMAIL_USER,
