@@ -14,7 +14,29 @@ const lookupIpv4Only = (hostname, options, callback) => {
   });
 };
 
-const getTransporter = () => {
+const createTransporter = ({ port, secure }) => {
+  return nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port,
+    secure,
+    family: 4,
+    lookup: lookupIpv4Only,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+    tls: {
+      servername: "smtp.gmail.com",
+      rejectUnauthorized: true,
+    },
+    requireTLS: !secure,
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 20000,
+  });
+};
+
+const getTransporter = async () => {
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     throw new Error(
       "Email is not configured. Add EMAIL_USER and EMAIL_PASS to Server/.env and restart the backend server."
@@ -27,30 +49,29 @@ const getTransporter = () => {
 
   dns.setDefaultResultOrder("ipv4first");
 
-  transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    family: 4,
-    lookup: lookupIpv4Only,
-    pool: true,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-    tls: {
-      servername: "smtp.gmail.com",
-    },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 15000,
-  });
+  const transporters = [
+    createTransporter({ port: 465, secure: true }),
+    createTransporter({ port: 587, secure: false }),
+  ];
 
-  return transporter;
+  let lastError;
+
+  for (const candidateTransporter of transporters) {
+    try {
+      await candidateTransporter.verify();
+      transporter = candidateTransporter;
+      return transporter;
+    } catch (error) {
+      lastError = error;
+      console.error("Gmail transporter verify failed:", error.message);
+    }
+  }
+
+  throw lastError;
 };
 
 const sendEmail = async (to, otp) => {
-  const transporter = getTransporter();
+  const transporter = await getTransporter();
 
   await transporter.sendMail({
     from: `"PlanMyContent" <${process.env.EMAIL_USER}>`,
