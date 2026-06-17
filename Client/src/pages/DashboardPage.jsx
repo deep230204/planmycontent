@@ -1115,15 +1115,24 @@ const DashboardPage = () => {
 
   const renderActivity = () => (
     <div className="space-y-6">
-      <div className="rounded-[45px] border p-10 transition-all duration-300"
+      <div className="rounded-[32px] sm:rounded-[45px] border p-6 sm:p-10 transition-all duration-300"
            style={{ background: "var(--card-bg)", borderColor: "var(--app-border)", boxShadow: "var(--shadow-premium)" }}>
-        <div className="mb-10">
-          <h2 className="text-2xl font-black" style={{ color: "var(--app-text)" }}>
-            Generation History
-          </h2>
-          <p className="mt-1 text-sm font-bold uppercase tracking-widest" style={{ color: "var(--muted-text)", opacity: 0.6 }}>
-            Full log of your content engineering
-          </p>
+        <div className="mb-8 sm:mb-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <button
+              onClick={() => setActiveTab("Overview")}
+              className="mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold transition-all hover:-translate-y-0.5"
+              style={{ background: "var(--soft-bg)", borderColor: "var(--app-border)", color: "var(--muted-text)" }}
+            >
+              <ArrowLeft size={14} /> Back to Overview
+            </button>
+            <h2 className="text-2xl font-black" style={{ color: "var(--app-text)" }}>
+              Generation History
+            </h2>
+            <p className="mt-1 text-xs sm:text-sm font-bold uppercase tracking-widest" style={{ color: "var(--muted-text)", opacity: 0.6 }}>
+              Full log of your content engineering
+            </p>
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -1167,10 +1176,10 @@ const DashboardPage = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center gap-2 sm:opacity-0 group-hover:opacity-100 transition-opacity mt-4 sm:mt-0">
                       <button
                         onClick={() => item.plan ? handleRemovePlan(item._id) : handleRemoveIdea(item._id)}
-                        className="p-2 transition-colors hover:text-red-500"
+                        className="p-2 transition-colors hover:text-red-500 rounded-full hover:bg-red-500/10"
                         style={{ color: "var(--muted-text)" }}
                       >
                         <Trash2 size={16} />

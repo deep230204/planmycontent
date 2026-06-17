@@ -230,6 +230,12 @@ function WorkspaceShell({
           PlanMy<span className="text-[#f47c35]">Content</span>
         </p>
       </div>
+      <button
+        onClick={() => setIsSidebarOpen(false)}
+        className="lg:hidden absolute top-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--app-border)] bg-[var(--card-bg)] text-[var(--muted-text)] shadow-sm transition-all hover:bg-[var(--soft-bg)] hover:text-[var(--app-text)]"
+      >
+        <X size={20} />
+      </button>
 
       <div className="mt-10 flex-1 space-y-8 overflow-y-auto pr-1">
         <section>
@@ -319,6 +325,12 @@ function WorkspaceShell({
           PlanMy<span className="text-orange-500">Content</span>
         </span>
       </div>
+      <button
+        onClick={() => setIsSidebarOpen(false)}
+        className="lg:hidden absolute top-8 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--app-border)] bg-[var(--card-bg)] text-[var(--muted-text)] shadow-sm transition-all hover:bg-[var(--soft-bg)] hover:text-[var(--app-text)]"
+      >
+        <X size={20} />
+      </button>
 
       <div className="flex-1 space-y-6 overflow-y-auto pr-1">
         <div>
@@ -484,7 +496,7 @@ function WorkspaceShell({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-slate-950/35 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-[60] bg-slate-950/35 backdrop-blur-sm lg:hidden"
               onClick={() => setIsSidebarOpen(false)}
             >
               <motion.div
@@ -509,12 +521,6 @@ function WorkspaceShell({
               <header className="sticky top-0 z-40 border-b border-[var(--app-border)] bg-[var(--card-bg)]/80 px-4 py-4 backdrop-blur-2xl transition-all duration-500 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between gap-4">
               <div className="flex min-w-0 items-center gap-3">
-                <button
-                  onClick={() => setIsSidebarOpen(true)}
-                  className={`flex h-12 w-12 items-center justify-center rounded-2xl ${softCardTone} lg:hidden`}
-                >
-                  <Menu size={20} />
-                </button>
                 <div className="min-w-0">
                   <p className="truncate text-2xl font-black tracking-tight text-[var(--app-text)] sm:text-3xl">
                     {title}
@@ -563,7 +569,7 @@ function WorkspaceShell({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 8 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute right-0 top-[calc(100%+12px)] z-50 w-[320px] rounded-[28px] border border-[var(--app-border)] bg-[var(--card-bg)] p-4 shadow-[0_28px_60px_rgba(15,23,42,0.18)]"
+                        className="absolute -right-2 sm:right-0 top-[calc(100%+12px)] z-50 w-[280px] sm:w-[320px] rounded-[28px] border border-[var(--app-border)] bg-[var(--card-bg)] p-4 shadow-[0_28px_60px_rgba(15,23,42,0.18)]"
                       >
                         <div className="flex items-center gap-3 rounded-[22px] bg-[var(--soft-bg)] p-3 border border-white/5 shadow-inner">
                           {renderAvatar("h-14 w-14")}
@@ -605,6 +611,13 @@ function WorkspaceShell({
                     ) : null}
                   </AnimatePresence>
                 </div>
+                
+                <button
+                  onClick={() => setIsSidebarOpen(true)}
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[22px] ${cardTone} lg:hidden hover:-translate-y-0.5 hover:border-orange-200`}
+                >
+                  <Menu size={20} />
+                </button>
               </div>
             </div>
           </header>
