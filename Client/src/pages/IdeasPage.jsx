@@ -63,7 +63,7 @@ const IdeasPage = () => {
             placeholder="Search ideas..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-64 rounded-xl border py-2 pl-10 pr-10 text-sm outline-none transition-all focus:ring-4 focus:ring-orange-500/10"
+            className="w-full sm:w-64 rounded-xl border py-2 pl-10 pr-10 text-sm outline-none transition-all focus:ring-4 focus:ring-orange-500/10"
             style={{ 
               background: "var(--card-bg)", 
               borderColor: "var(--app-border)", 

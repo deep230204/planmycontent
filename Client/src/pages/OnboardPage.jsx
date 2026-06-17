@@ -162,7 +162,7 @@ function OnboardPage() {
           <div className="absolute bottom-[-10%] right-[-10%] h-[40%] w-[40%] rounded-full bg-indigo-500/5 dark:bg-indigo-500/10 blur-[120px]" />
         </div>
 
-        <div className="relative grid gap-8 xl:grid-cols-[340px_1fr]">
+        <div className="relative grid gap-8 lg:grid-cols-[300px_1fr] xl:grid-cols-[340px_1fr]">
           <OnboardingSidebar currentStep={currentStep} />
 
           <main className="relative">

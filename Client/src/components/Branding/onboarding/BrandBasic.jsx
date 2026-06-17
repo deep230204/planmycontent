@@ -72,7 +72,7 @@ function BrandBasic({ formData, setFormData }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_340px]"
+      className="grid grid-cols-1 gap-10 xl:grid-cols-[1fr_340px]"
     >
       {/* LEFT: FORM SECTION */}
       <div className="space-y-10">

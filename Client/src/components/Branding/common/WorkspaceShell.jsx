@@ -304,7 +304,7 @@ function WorkspaceShell({
   );
 
   const defaultSidebar = (
-    <aside className={`hidden w-72 shrink-0 border-r transition-all duration-500 lg:flex lg:flex-col px-6 py-8 ${
+    <aside className={`flex h-full w-72 shrink-0 flex-col border-r px-6 py-8 transition-all duration-500 ${
       isDark 
         ? "border-white/5 bg-[#020617] shadow-[20px_0_60px_rgba(0,0,0,0.3)]" 
         : "border-slate-200 bg-white shadow-[20px_0_60px_rgba(0,0,0,0.02)]"
@@ -428,7 +428,7 @@ function WorkspaceShell({
       </div>
 
       <div className="flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
-        <div className={`mb-8 rounded-[32px] border border-[var(--app-border)] bg-[var(--card-bg)] p-6 shadow-[0_20px_50px_rgba(15,23,42,0.02)] transition-colors duration-300 sm:p-8 lg:p-10`}>
+        <div className={`mb-6 rounded-[28px] sm:mb-8 sm:rounded-[32px] border border-[var(--app-border)] bg-[var(--card-bg)] p-5 shadow-[0_20px_50px_rgba(15,23,42,0.02)] transition-colors duration-300 sm:p-8 lg:p-10`}>
           <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
             <div className="max-w-3xl">
               <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -448,7 +448,7 @@ function WorkspaceShell({
                   </motion.button>
                 ) : null}
               </div>
-              <h1 className="text-3xl font-black tracking-tight text-[var(--app-text)] sm:text-4xl">
+              <h1 className="text-2xl font-black tracking-tight text-[var(--app-text)] sm:text-3xl md:text-4xl">
                 {title}
               </h1>
               {description ? (

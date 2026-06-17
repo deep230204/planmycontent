@@ -83,7 +83,7 @@ function OnboardingHeader({
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="text-4xl md:text-5xl font-black text-[var(--app-text)] tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl font-black text-[var(--app-text)] tracking-tight"
           >
             {title}
           </motion.h1>
