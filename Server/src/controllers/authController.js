@@ -38,11 +38,20 @@ const MEMBERSHIP_PLANS = {
 };
 
 const getOtpEmailErrorMessage = (error) => {
+  const errorText = `${error.code || ""} ${error.message || ""} ${
+    error.response || ""
+  }`;
+
   if (error.code === "EAUTH") {
     return "Gmail authentication failed. Please check EMAIL_USER and EMAIL_PASS on Render.";
   }
 
-  if (error.code === "ENETUNREACH" || error.code === "ETIMEDOUT") {
+  if (
+    error.code === "ENETUNREACH" ||
+    error.code === "ETIMEDOUT" ||
+    errorText.includes("ENETUNREACH") ||
+    errorText.includes(":465")
+  ) {
     return "Email server connection failed from Render. Please redeploy the latest SMTP fix and try again.";
   }
 
